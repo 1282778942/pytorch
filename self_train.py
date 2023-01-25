@@ -16,8 +16,9 @@ test_dataset = torchvision.datasets.CIFAR10("./data", train=False, transform=tor
 train_dataset_size = len(train_dataset)
 test_dataset_size = len(test_dataset)
 
-print(train_dataset_size)
-print(test_dataset_size)
+# print(train_dataset_size)
+# print(test_dataset_size)
+
 #2、加载数据集
 train_dataset_loader = DataLoader(dataset=train_dataset, batch_size=64)
 test_dataset_loader = DataLoader(dataset=test_dataset, batch_size=64)
@@ -49,13 +50,14 @@ net = Net()
 net = net.to(device)
 
 #5、设置损失函数、优化器
+
 #损失函数
-loss_fun = nn.CrossEntropyLoss()   #交叉熵
+loss_fun = nn.CrossEntropyLoss()
 loss_fun = loss_fun.to(device)
 
 #优化器
 learning_rate = 1e-2
-optimizer = torch.optim.SGD(net.parameters(), learning_rate)   #SGD:梯度下降算法
+optimizer = torch.optim.SGD(net.parameters(), learning_rate)
 
 #6、设置网络训练中的一些参数
 total_train_step = 0   #记录总计训练次数
@@ -75,7 +77,6 @@ for i in range(epoch):
         imgs = imgs.to(device)
         targets = targets.to(device)
         outputs = net(imgs)
-
 
         #比较输出与真实值，计算Loss
         loss = loss_fun(outputs, targets)
