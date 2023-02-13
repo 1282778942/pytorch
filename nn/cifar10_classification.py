@@ -2,8 +2,6 @@ import torch
 import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
-import matplotlib.pyplot as plt
-import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
@@ -16,9 +14,9 @@ transform = transforms.Compose(
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
 )
 # 准备数据集
-train_set = torchvision.datasets.CIFAR10(root='../nn/data', train=True, download=False, transform=transform)
+train_set = torchvision.datasets.CIFAR10(root='./data', train=True, download=False, transform=transform)
 train_loader = DataLoader(train_set, batch_size=16, shuffle=True, num_workers=0)
-test_set = torchvision.datasets.CIFAR10(root='../nn/data', train=False, download=False, transform=transform)
+test_set = torchvision.datasets.CIFAR10(root='./data', train=False, download=False, transform=transform)
 test_loader = DataLoader(test_set, batch_size=16, shuffle=False, num_workers=0)
 
 # 随机获取部分训练数据

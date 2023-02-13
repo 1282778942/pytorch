@@ -3,14 +3,21 @@ from torch import nn
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 import torch
+import torchvision.transforms as transforms
+
 # from self_model import *
 
 #定义训练设备
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+transform = transforms.Compose(
+    [transforms.ToTensor(),
+     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
+)
+
 #1、准备数据集
-train_dataset = torchvision.datasets.CIFAR10("./data", train=True, transform=torchvision.transforms.ToTensor(), download=False)
-test_dataset = torchvision.datasets.CIFAR10("./data", train=False, transform=torchvision.transforms.ToTensor(), download=False)
+train_dataset = torchvision.datasets.CIFAR10("./data", train=True, transform=transform, download=True)
+test_dataset = torchvision.datasets.CIFAR10("./data", train=False, transform=transform, download=True)
 
 
 train_dataset_size = len(train_dataset)
@@ -117,5 +124,5 @@ for i in range(epoch):
     total_test_step += 1
 
     #9、保存模型
-    torch.save(net, "./self_model_{}".pth.format(i+1))
+    torch.save(net, "./self_model_{}.pth".format(i+1))
     print("模型已保存")
